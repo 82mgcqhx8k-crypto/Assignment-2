@@ -147,24 +147,20 @@ def calculate_overall_shooting_accuracy(data, headers):
     """
     Calculate overall shooting accuracy for each player in each season.
     Overall Shooting Accuracy = Total Made Shots / Total Attempted Shots * 100
-    Total Made = FGM + 3PM + FTM
-    Total Attempted = FGA + 3PA + FTA
+    Total Made = FGM + FTM (FGM already includes 3PM)
+    Total Attempted = FGA + FTA (FGA already includes 3PA)
     """
     fgm_idx = get_column_index(headers, 'FGM')
     fga_idx = get_column_index(headers, 'FGA')
-    tpm_idx = get_column_index(headers, '3PM')
-    tpa_idx = get_column_index(headers, '3PA')
     ftm_idx = get_column_index(headers, 'FTM')
     fta_idx = get_column_index(headers, 'FTA')
     
-    if None in [fgm_idx, fga_idx, tpm_idx, tpa_idx, ftm_idx, fta_idx]:
+    if None in [fgm_idx, fga_idx, ftm_idx, fta_idx]:
         print("Warning: Required columns for overall shooting accuracy not found")
         return None
     
     fgm = data[:, fgm_idx].astype(float)
     fga = data[:, fga_idx].astype(float)
-    tpm = data[:, tpm_idx].astype(float)
-    tpa = data[:, tpa_idx].astype(float)
     ftm = data[:, ftm_idx].astype(float)
     fta = data[:, fta_idx].astype(float)
     
